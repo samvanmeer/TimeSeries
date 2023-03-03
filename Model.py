@@ -6,7 +6,7 @@ class Model:
     def __init__(self,name):
         self.name=name
 
-    def moving_window_pred(self,X,y,start_string='2000-01-01',end_string='2015-09-01',years=40):
+    def moving_window_pred(self,X,y,start_string='1980-01-01',end_string='2022-09-01',years=40):
         start=utils.dformat(start_string)
         end=utils.dformat(end_string)
         i=start

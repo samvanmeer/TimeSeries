@@ -8,6 +8,8 @@ from Models import peLASSO
 from sklearn import metrics
 
 #Read and structure data
+from Models.Lasso_interactions import Lasso_interactions
+
 df=pd.read_excel('USEMP.xlsx')
 df=df.set_index('Month')
 df.index = pd.to_datetime(df.index)
@@ -18,14 +20,15 @@ X=df.drop('EMP',axis=1)
 #Specify models
 nr_components=2 #For PCA
 lambdas=[0.21,3.1] #For peLASSO. These values are from Diebold(2019)
-
+interaction_p=0.2
 mod1=KitchenSink.KitchenSink()
 mod2=WeightedAverage.WeightedAverage()
 mod3=LinearFactor.LinearFactor(nr_components)
 mod4=peLASSO.peLASSO(lambdas)
+mod5=Lasso_interactions(interaction_p)
 bm1= HistoricalAverage.HistoricalAverage()
 bm2= AR1.AR1()
-m_list=[mod1,mod2,mod3,mod4,bm1,bm2]
+m_list=[mod1,mod2,mod3,mod4,mod5,bm1,bm2]
 mods={m.name: m for m in m_list}
 
 #Fit and predict in sample
