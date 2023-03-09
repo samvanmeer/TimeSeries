@@ -1,6 +1,10 @@
 import utils
 import dateutil.relativedelta
 import pandas as pd
+import numpy as np
+from feval import helpers  # to easily compute losses
+from feval import cmcs
+
 from sklearn import metrics
 class Model:
     def __init__(self,name):
@@ -24,7 +28,13 @@ class Model:
         preds_df=pd.DataFrame(preds)
         preds_df.index=pd.DatetimeIndex(X[start:end].index)
         mse=metrics.mean_squared_error(y[start:end],preds_df)
-        return mse,preds_df
+        return mse,preds_df,y[start:end]
 
+def evaluation(preds,target):
+    L = -1*helpers.se(target, preds)  # Squared loss
 
+    # Perform the cmcs with an HAC estimator, the Bartlett kernel and a significance level of 0.01
+    mcs, S, cval, pval, removed = cmcs(L, alpha=0.05, covar_style="hac", kernel="Bartlett")
+
+    return mcs, S,cval,pval,removed
 
