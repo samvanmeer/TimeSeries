@@ -5,7 +5,7 @@ from Model import Model
 class WeightedAverage(Model):
 
     def __init__(self):
-        self.name='WeightedAverage'
+        self.name='IndividualAverage'
         self.indiv_mods={}
         super().__init__(self.name)
 

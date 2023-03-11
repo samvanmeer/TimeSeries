@@ -8,7 +8,7 @@ import numpy as np
 class Lasso_interactions(Model):
 
     def __init__(self,lam):
-        self.name='Lasso_interactions'
+        self.name='LassoInteractions'
         self.lambda1 =lam
 
         super().__init__(self.name)

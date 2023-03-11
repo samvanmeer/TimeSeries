@@ -9,7 +9,7 @@ import pandas as pd
 class KoobsvanMeer(Model):
 
     def __init__(self,components):
-        self.name='KoobsvanMeer'
+        self.name='NonLinearFactor'
         self.components=components
         super().__init__(self.name)
 
@@ -36,7 +36,7 @@ class KoobsvanMeer(Model):
         X_cross = X.join(pd.DataFrame({
             f'{x[0]} {x[1]}': X[x[0]] * X[x[1]] for x in self.cross_effects
         }))
-        X_pc=self.pc.transform(self.sc.transform(X_cross))
+        X_pc=self.pc.transform(X_cross)
         return self.model.predict(X_pc)
 
 

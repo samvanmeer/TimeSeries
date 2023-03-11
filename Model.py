@@ -27,7 +27,7 @@ class Model:
             i=i+dateutil.relativedelta.relativedelta(months=1)
         preds_df=pd.DataFrame(preds)
         preds_df.index=pd.DatetimeIndex(X[start:end].index)
-        mse=metrics.mean_squared_error(y[start:end],preds_df)
+        mse=metrics.mean_absolute_error(y[start:end],preds_df)
         return mse,preds_df,y[start:end]
 
 def evaluation(preds,target):
